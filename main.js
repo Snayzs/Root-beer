@@ -3,7 +3,7 @@ const data = new Data()
 let table = new Sprite(data.table)
 let hand = new Sprite(data.hand)
 let pipe = new Sprite(data.pipe)
-let tin = new Sprite(data.tin)
+//let tin = new Sprite(data.tin)
 let clock = new Clock(data.clock)
 let glass = new Glass(data.glass)
 let bear = new Bear(data.bear)
@@ -55,7 +55,7 @@ function animate() {
   c.clearRect(0, 0, canvas.width, canvas.height)
 
   if (clock.time || !isStop) {
-    let sprites = [bear, hand, table, glass, pipe, clock, tin, text]
+    let sprites = [bear, hand, table, glass, pipe, clock, text]
     sprites.forEach(sprite => sprite.draw())
     reset()
     handleTouch()
