@@ -1,52 +1,64 @@
-function drawBoard() {
+class Scores {
+  constructor(coins) {
+    this.coins = coins;
+    this.initialize();
+  }
 
-}
+  initialize() {
+    this.top = 50;
+    this.left = 50;
+    this.bottom = canvas.height - 50;
+    this.right = canvas.width - 50;
 
-function showScores(totalCoins) {
-  let top = 50
-  let left = 50
-  let bottom = canvas.height - 50
-  let right = canvas.width - 50
+    this.calculateScores();
+  }
 
-  c.strokeStyle = '#bdbdbd'
-  c.lineWidth = 2
-  c.fillStyle = '#bdbdbd'
-  c.font = '20px monospace'
+  board() {
+    c.strokeStyle = '#bdbdbd';
+    c.lineWidth = 2;
+    c.fillStyle = '#bdbdbd';
+    c.font = '20px monospace';
 
-  c.moveTo(left, top)
-  c.lineTo(left, bottom)
-  c.lineTo(right, bottom)
-  c.lineTo(right, top)
-  c.lineTo(left, top)
+    c.moveTo(this.left, this.top);
+    c.lineTo(this.left, this.bottom);
+    c.lineTo(this.right, this.bottom);
+    c.lineTo(this.right, this.top);
+    c.lineTo(this.left, this.top);
 
-  c.moveTo(left, bottom - 70)
-  c.lineTo(right, bottom - 70)
+    c.moveTo(this.left, this.bottom - 70);
+    c.lineTo(this.right, this.bottom - 70);
 
-  c.stroke()
+    c.stroke();
+  }
 
+  calculateScores() {
+    let coins = [...this.coins];
+    let category = ['Perfect', 'Enough', 'Less'];
+    let currency = ['Gold', 'Silver', 'Bronze'];
+    let [perfect, enough, less] = currency.map(c => coins.filter(e => e.type === c));
 
-  let coins = [...totalCoins];
-  let category = ['Perfect', 'Enough', 'Less'];
-  let currency = ['Gold', 'Silver', 'Bronze']
-  let [perfect, enough, less] = currency.map(c => coins.filter(e => e.type === c))
+    this.amount = [perfect, enough, less].map(e => e.length);
 
-  let amount = [perfect, enough, less].map(e => e.length)
+    this.point = [perfect, enough, less].map(el => el.map(e => e.value).reduce((a, b) => a + b, 0));
+    this.totalPoint = this.point.reduce((a, b) => a + b, 0);
+  }
 
-  let point = [perfect, enough, less].map(el => el.map(e => e.value).reduce((a, b) => a + b, 0))
-  let total_point = point.reduce((a, b) => a + b, 0)
+  draw() {
+    this.board();
 
-  amount.forEach((item, i) => {
-    c.fillText(item, right - 200, top + 50 * (i + 1))
-  })
+    this.amount.forEach((item, i) => {
+      c.fillText(item, this.right - 200, this.top + 50 * (i + 1));
+    });
 
-  point.forEach((item, i) => {
-    c.fillText(item, right - 100, top + 50 * (i + 1))
-  })
+    this.point.forEach((item, i) => {
+      c.fillText(item, this.right - 100, this.top + 50 * (i + 1));
+    });
 
-  category.forEach((item, i) => {
-    c.fillText(item, left + 30, top + 50 * (i + 1))
-  })
+    ['Perfect', 'Enough', 'Less'].forEach((item, i) => {
+      c.fillText(item, this.left + 30, this.top + 50 * (i + 1));
+    });
 
-  c.fillText('Total', left + 30, bottom - 30)
-  c.fillText(total_point, right - 100, bottom - 30)
+    c.fillText('Total', this.left + 30, this.bottom - 30);
+    c.fillText(this.totalPoint, this.right - 100, this.bottom - 30);
+  }
 }

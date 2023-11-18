@@ -60,7 +60,8 @@ function animate() {
     reset()
     handleTouch()
   } else {
-    showScores(coins)
+    let scores = new Scores(coins)
+    scores.draw()
   }
 
 }
