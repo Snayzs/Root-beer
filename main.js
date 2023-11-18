@@ -49,6 +49,11 @@ window.addEventListener('touchend', () => {
 })
 
 
+bear.image.addEventListener('load',()=>{
+  alert('berhasil loading')
+})
+
+
 
 function animate() {
   requestAnimationFrame(animate);
