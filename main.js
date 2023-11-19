@@ -49,8 +49,20 @@ window.addEventListener('touchend', () => {
 })
 
 
-bear.image.addEventListener('load',()=>{
-  alert('berhasil loading')
+isLoading = true
+bear.image.addEventListener('load', () => {
+  isLoading = false
+})
+
+let loading = new Text({
+  position: {
+    x: canvas.width / 2 - 100,
+    y: canvas.height / 2 - 30
+  },
+  color: '#bdbdbd',
+  font: 'monospace',
+  size: 30,
+  message: 'Loading...'
 })
 
 
@@ -58,8 +70,9 @@ bear.image.addEventListener('load',()=>{
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height)
-
-  if (clock.time || !isStop) {
+  if (isLoading) {
+    loading.draw()
+  } else if (clock.time || !isStop) {
     let sprites = [bear, hand, table, glass, pipe, clock, text]
     sprites.forEach(sprite => sprite.draw())
     reset()
