@@ -31,7 +31,16 @@ class Data {
       },
       expression: "normal",
       width: 250,
-      height: 250
+      height: 250,
+      paths: {
+        normal: 'assets/bear/normal.png',
+        sweating: 'assets/bear/sweating.png',
+        moreSweating: 'assets/bear/moreSweating.png',
+        notbad: 'assets/bear/notbad.png',
+        scream: 'assets/bear/scream.png',
+        perfect: 'assets/bear/perfect.png',
+        disappointed: 'assets/bear/disappointed.png',
+      }
     }
     this.pipe = {
       position: {

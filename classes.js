@@ -34,13 +34,18 @@ class Sprite {
 }
 
 class Bear {
-  constructor({ position, width, height, expression }) {
+  constructor({ position, width, height, expression, paths }) {
     this.position = position;
     this.width = width;
     this.height = height;
     this._expression = expression;
-    this.image = new Image();
-    this.image.src = `assets/bear/${this._expression}.png`;
+    this.images = {}
+    this.paths = paths
+    for (const key in this.paths) {
+      this.images[key] = new Image()
+      this.images[key].src = this.paths[key]
+    }
+    this.image = this.images[this._expression]
   }
 
   get expression() {
@@ -49,7 +54,7 @@ class Bear {
 
   set expression(newExpression) {
     this._expression = newExpression;
-    this.image.src = `assets/bear/${this._expression}.png`;
+    this.image = this.images[this._expression]
   }
 
   draw() {
