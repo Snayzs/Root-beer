@@ -52,13 +52,13 @@ window.addEventListener('touchend', () => {
 })
 
 
-//loading . . .
+//loading handler
 for (const key in bear.images) {
   bear.images[key].addEventListener('load', () => {
     image_has_render++
     
     if (image_has_render === Object.keys(bear.images).length) {
-      isLoading = true
+      isLoading = false
     }
   })
 }
