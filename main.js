@@ -15,6 +15,8 @@ glass.position.x = canvas.width
 let isReset = false
 let isStop = false
 let isTouch = false
+let isLoading = true
+let image_has_render = 0
 let time = 60
 let coins = []
 let frame = 0
@@ -49,10 +51,18 @@ window.addEventListener('touchend', () => {
 })
 
 
-isLoading = true
-bear.image.addEventListener('load', () => {
-  isLoading = false
-})
+//loading . . .
+for (const key in bear.images) {
+  bear.images[key].addEventListener('load', () => {
+    image_has_render++
+    
+    if (image_has_render === Object.keys(bear.images).length) {
+      isLoading = false
+    }
+  })
+}
+
+
 
 let loading = new Text({
   position: {
