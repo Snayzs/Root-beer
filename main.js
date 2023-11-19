@@ -8,6 +8,7 @@ let clock = new Clock(data.clock)
 let glass = new Glass(data.glass)
 let bear = new Bear(data.bear)
 let text = new Text(data.text)
+let loading = new Text(data.loading)
 
 hand.position.y = glass.target.position.y - 58
 glass.position.x = canvas.width
@@ -57,23 +58,13 @@ for (const key in bear.images) {
     image_has_render++
     
     if (image_has_render === Object.keys(bear.images).length) {
-      isLoading = false
+      isLoading = true
     }
   })
 }
 
 
 
-let loading = new Text({
-  position: {
-    x: canvas.width / 2 - 100,
-    y: canvas.height / 2 - 30
-  },
-  color: '#bdbdbd',
-  font: 'monospace',
-  size: 30,
-  message: 'Loading...'
-})
 
 
 

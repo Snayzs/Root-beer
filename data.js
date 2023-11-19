@@ -87,6 +87,16 @@ class Data {
       size: 25,
       color: "#bdbdbd"
     }
+    this.loading = {
+      position: {
+        x: canvas.width / 2 - 100,
+        y: canvas.height / 2
+      },
+      color: '#bdbdbd',
+      font: 'monospace',
+      size: 30,
+      message: 'Loading...'
+    }
     this.coin = {
       gold: {
         type: 'Gold',
