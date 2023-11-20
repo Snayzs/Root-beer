@@ -18,7 +18,8 @@ class Scores {
     c.lineWidth = 2;
     c.fillStyle = '#bdbdbd';
     c.font = '20px monospace';
-
+    
+    c.beginPath()
     c.moveTo(this.left, this.top);
     c.lineTo(this.left, this.bottom);
     c.lineTo(this.right, this.bottom);
@@ -27,6 +28,7 @@ class Scores {
 
     c.moveTo(this.left, this.bottom - 70);
     c.lineTo(this.right, this.bottom - 70);
+    c.closePath();
 
     c.stroke();
   }

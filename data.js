@@ -78,14 +78,24 @@ class Data {
       src: "clock.png",
       time: 60
     }
-    this.text = {
+    this.bear_text = {
       position: {
         x: 110,
         y: 50
       },
-      font: "Monospace",
+      font: "monospace",
       size: 25,
       color: "#bdbdbd"
+    }
+    this.home_title = {
+      position: {
+        x: canvas.width / 2 - 150,
+        y: 150
+      },
+      font: "helvetica",
+      size: 50,
+      color: "#bdbdbd",
+      message: "ROOTED BEAR"
     }
     this.loading = {
       position: {
@@ -96,6 +106,18 @@ class Data {
       font: 'monospace',
       size: 30,
       message: 'Loading...'
+    }
+    this.button = {
+      position: {
+        x: canvas.width / 2 - 40,
+        y: 200
+      },
+      width: 100,
+      height: 50,
+      color: ['#bdbdbd', '#000'],
+      font: 'monospace',
+      size: 20,
+      message: 'START'
     }
     this.coin = {
       gold: {

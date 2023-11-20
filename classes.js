@@ -238,3 +238,70 @@ class Text {
     )
   }
 }
+
+class Button {
+  constructor({ position, width, height, color, font, size, message }) {
+    this.position = position
+    this.width = width
+    this.height = height
+    this.color = color
+    this.font = font
+    this.size = size
+    this.message = message
+
+    this.eventHendler()
+  }
+
+  eventHendler() {
+    canvas.addEventListener("click", (event) => {
+      const mouseX = event.clientY
+      const mouseY = -(event.clientX - canvas.height)
+
+      if (this.isInsideButton(mouseX, mouseY)) {
+        this.resolvePromise()
+      }
+    })
+  }
+
+  isInsideButton(x, y) {
+    return (
+      x > this.position.x &&
+      x < this.position.x + this.width &&
+      y > this.position.y &&
+      y < this.position.y + this.height
+    )
+  }
+
+  init() {
+    return new Promise((resolve) => {
+      this.resolvePromise = resolve
+    })
+  }
+
+  draw() {
+    c.fillStyle = this.color[0]
+    const radius = 10
+
+    c.beginPath();
+    c.moveTo(this.position.x + radius, this.position.y);
+    c.lineTo(this.position.x + this.width - radius, this.position.y);
+    c.quadraticCurveTo(this.position.x + this.width, this.position.y, this.position.x + this.width, this.position.y + radius);
+    c.lineTo(this.position.x + this.width, this.position.y + this.height - radius);
+    c.quadraticCurveTo(this.position.x + this.width, this.position.y + this.height, this.position.x + this.width - radius, this.position.y + this.height);
+    c.lineTo(this.position.x + radius, this.position.y + this.height);
+    c.quadraticCurveTo(this.position.x, this.position.y + this.height, this.position.x, this.position.y + this.height - radius);
+    c.lineTo(this.position.x, this.position.y + radius);
+    c.quadraticCurveTo(this.position.x, this.position.y, this.position.x + radius, this.position.y);
+    c.closePath();
+    c.fill()
+
+    c.fillStyle = this.color[1]
+    c.font = `bold ${this.size}px ${this.font}`
+
+    c.fillText(
+      this.message,
+      this.position.x + this.size,
+      this.position.y + this.size + this.size / 2
+    )
+  }
+}

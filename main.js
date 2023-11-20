@@ -3,12 +3,13 @@ const data = new Data()
 let table = new Sprite(data.table)
 let hand = new Sprite(data.hand)
 let pipe = new Sprite(data.pipe)
-//let tin = new Sprite(data.tin)
 let clock = new Clock(data.clock)
 let glass = new Glass(data.glass)
 let bear = new Bear(data.bear)
-let text = new Text(data.text)
+let bear_text = new Text(data.bear_text)
 let loading = new Text(data.loading)
+let buttonStart = new Button(data.button)
+let home_title = new Text(data.home_title)
 
 hand.position.y = glass.target.position.y - 58
 glass.position.x = canvas.width
@@ -17,6 +18,8 @@ let isReset = false
 let isStop = false
 let isTouch = false
 let isLoading = true
+let isStart = false
+let is_in_home = true
 let image_has_render = 0
 let time = 60
 let coins = []
@@ -32,7 +35,6 @@ function setTime(currentTime) {
   if (currentTime > 0)
     setTimeout(() => setTime(currentTime - 1), 1000)
 }
-setTime(time)
 
 function addCoin(type) {
   coins.push(data.coin[type])
@@ -56,7 +58,7 @@ window.addEventListener('touchend', () => {
 for (const key in bear.images) {
   bear.images[key].addEventListener('load', () => {
     image_has_render++
-    
+
     if (image_has_render === Object.keys(bear.images).length) {
       isLoading = false
     }
@@ -66,23 +68,45 @@ for (const key in bear.images) {
 
 
 
+function setPages() {
+  switch (true) {
+    case isLoading:
+      loading.draw()
+      break;
+
+    case !isStart:
+      home_title.draw()
+      buttonStart.draw()
+      buttonStart.init().then(() => {
+        setTime(time)
+        isStart = true
+      })
+      break;
+
+    case clock.time > 0:
+    case frame < 100:
+      let sprites = [bear, hand, table, glass, pipe, clock, bear_text]
+      sprites.forEach(sprite => sprite.draw())
+
+      reset()
+      handleTouch()
+      break;
+
+    case clock.time == 0:
+      let scores = new Scores(coins)
+      scores.draw()
+      break;
+  }
+}
+
+
 
 
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height)
-  if (isLoading) {
-    loading.draw()
-  } else if (clock.time || !isStop) {
-    let sprites = [bear, hand, table, glass, pipe, clock, text]
-    sprites.forEach(sprite => sprite.draw())
-    reset()
-    handleTouch()
-  } else {
-    let scores = new Scores(coins)
-    scores.draw()
-  }
 
+  setPages()
 }
 animate()
 
@@ -100,7 +124,7 @@ function reset() {
         break;
       case frame > 50 && frame < 80:
         glass.slideOut();
-        text.message = '';
+        bear_text.message = '';
         bear.position.y += 10;
         break;
       case frame > 100 && frame < 110:
@@ -168,17 +192,17 @@ function checkVolume() {
 
     if (isAccording()) {
       bear.expression = 'perfect'
-      text.message = 'Perfect Pour'
+      bear_text.message = 'Perfect Pour'
       addCoin('gold')
       return
     }
     if (isAccording(5)) {
-      text.message = 'Close Enough'
+      bear_text.message = 'Close Enough'
       bear.expression = 'notbad'
       addCoin('silver')
       return
     }
-    text.message = ' weak pour '
+    bear_text.message = ' weak pour '
     bear.expression = 'disappointed'
     addCoin('bronze')
     return;
