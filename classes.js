@@ -43,13 +43,9 @@ class Bear {
     this.paths = paths
     for (const key in this.paths) {
       this.images[key] = new Image()
-      this.images[key].src = this.paths[key]
+      this.images[key].src = `assets/bear/${this.paths[key]}`
     }
     this.image = this.images[this._expression]
-  }
-
-  get expression() {
-    return this._expression;
   }
 
   set expression(newExpression) {
@@ -109,18 +105,10 @@ class Glass {
     this.liquid = { height: 0 }
   }
 
-  slideIn() {
+  slide(direction) {
+    let target = direction == 'out' ? -this.width : this.currentPosition.x
     let n = 20
-    if (this.position.x >= this.currentPosition.x) {
-      this.position.x -= n
-      this.foam.position.x -= n
-      this.beer.position.x -= n
-    }
-  }
-
-  slideOut() {
-    let n = 20
-    if (this.position.x >= -this.width) {
+    if (this.position.x >= target) {
       this.position.x -= n
       this.foam.position.x -= n
       this.beer.position.x -= n
@@ -181,7 +169,7 @@ class Glass {
       this.height
     )
 
-    this.slideIn()
+    this.slide('in')
   }
 }
 
@@ -208,7 +196,7 @@ class Clock {
     )
 
     c.fillStyle = '#fff'
-    c.font = "30px Aria";
+    c.font = "30px monospace";
 
     c.fillText(
       this.time <= 9 ? '0' + this.time : this.time,
@@ -219,12 +207,10 @@ class Clock {
 }
 
 class Text {
-  constructor({ position, color, font, size, message = "" }) {
-    this.position = position
-    this.color = color
-    this.font = font
-    this.size = size
-    this.message = message
+  constructor({ position, font, message = "" }) {
+    this.position = position;
+    this.message = message;
+    [this.size, this.font, this.color] = font
   }
 
   draw() {
@@ -240,14 +226,13 @@ class Text {
 }
 
 class Button {
-  constructor({ position, width, height, color, font, size, message }) {
+  constructor({ position, width, height, color, font, message }) {
     this.position = position
     this.width = width
     this.height = height
     this.color = color
-    this.font = font
-    this.size = size
     this.message = message
+    this.font = font
 
     this.eventHendler()
   }
@@ -279,29 +264,33 @@ class Button {
   }
 
   draw() {
-    c.fillStyle = this.color[0]
-    const radius = 10
+    c.fillStyle = this.color
+    let radius = 10
+    let top = this.position.y
+    let bottom = this.position.y + this.height
+    let left = this.position.x
+    let right = this.position.x + this.width
 
     c.beginPath();
-    c.moveTo(this.position.x + radius, this.position.y);
-    c.lineTo(this.position.x + this.width - radius, this.position.y);
-    c.quadraticCurveTo(this.position.x + this.width, this.position.y, this.position.x + this.width, this.position.y + radius);
-    c.lineTo(this.position.x + this.width, this.position.y + this.height - radius);
-    c.quadraticCurveTo(this.position.x + this.width, this.position.y + this.height, this.position.x + this.width - radius, this.position.y + this.height);
-    c.lineTo(this.position.x + radius, this.position.y + this.height);
-    c.quadraticCurveTo(this.position.x, this.position.y + this.height, this.position.x, this.position.y + this.height - radius);
-    c.lineTo(this.position.x, this.position.y + radius);
-    c.quadraticCurveTo(this.position.x, this.position.y, this.position.x + radius, this.position.y);
+    c.moveTo(left + radius, top);
+    c.lineTo(right - radius, top);
+    c.quadraticCurveTo(right, top, right, top + radius);
+    c.lineTo(right, bottom - radius);
+    c.quadraticCurveTo(right, bottom, right - radius, bottom);
+    c.lineTo(left + radius, bottom);
+    c.quadraticCurveTo(left, bottom, left, bottom - radius);
+    c.lineTo(left, top + radius);
+    c.quadraticCurveTo(left, top, left + radius, top);
     c.closePath();
     c.fill()
 
-    c.fillStyle = this.color[1]
-    c.font = `bold ${this.size}px ${this.font}`
-
-    c.fillText(
-      this.message,
-      this.position.x + this.size,
-      this.position.y + this.size + this.size / 2
-    )
+    new Text({
+      position: {
+        x: this.position.x + this.font[0],
+        y: this.position.y + this.font[0] * 1.5
+      },
+      font: this.font,
+      message: this.message,
+    }).draw()
   }
 }

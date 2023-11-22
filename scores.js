@@ -18,7 +18,7 @@ class Scores {
     c.lineWidth = 2;
     c.fillStyle = '#bdbdbd';
     c.font = '20px monospace';
-    
+
     c.beginPath()
     c.moveTo(this.left, this.top);
     c.lineTo(this.left, this.bottom);
@@ -53,7 +53,7 @@ class Scores {
     });
 
     this.point.forEach((item, i) => {
-      c.fillText(item, this.right - 100, this.top + 50 * (i + 1));
+      c.fillText('$' + item, this.right - 100, this.top + 50 * (i + 1));
     });
 
     ['Perfect', 'Enough', 'Less'].forEach((item, i) => {
@@ -61,6 +61,6 @@ class Scores {
     });
 
     c.fillText('Total', this.left + 30, this.bottom - 30);
-    c.fillText(this.totalPoint, this.right - 100, this.bottom - 30);
+    c.fillText('$' + this.totalPoint, this.right - 100, this.bottom - 30);
   }
 }

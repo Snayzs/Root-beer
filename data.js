@@ -33,13 +33,13 @@ class Data {
       width: 250,
       height: 250,
       paths: {
-        normal: 'assets/bear/normal.png',
-        sweating: 'assets/bear/sweating.png',
-        moreSweating: 'assets/bear/moreSweating.png',
-        notbad: 'assets/bear/notbad.png',
-        scream: 'assets/bear/scream.png',
-        perfect: 'assets/bear/perfect.png',
-        disappointed: 'assets/bear/disappointed.png',
+        normal: 'normal.png',
+        sweating: 'sweating.png',
+        moreSweating: 'moreSweating.png',
+        notbad: 'notbad.png',
+        scream: 'scream.png',
+        perfect: 'perfect.png',
+        disappointed: 'disappointed.png',
       }
     }
     this.pipe = {
@@ -83,18 +83,14 @@ class Data {
         x: 110,
         y: 50
       },
-      font: "monospace",
-      size: 25,
-      color: "#bdbdbd"
+      font: [25, 'monospace', '#bdbdbd'],
     }
     this.home_title = {
       position: {
         x: canvas.width / 2 - 150,
         y: 150
       },
-      font: "helvetica",
-      size: 50,
-      color: "#bdbdbd",
+      font: [50, 'helvetica', '#bdbdbd'],
       message: "ROOTED BEAR"
     }
     this.loading = {
@@ -102,9 +98,7 @@ class Data {
         x: canvas.width / 2 - 100,
         y: canvas.height / 2
       },
-      color: '#bdbdbd',
-      font: 'monospace',
-      size: 30,
+      font: [30, 'monospace', '#bdbdbd'],
       message: 'Loading...'
     }
     this.button = {
@@ -114,9 +108,8 @@ class Data {
       },
       width: 100,
       height: 50,
-      color: ['#bdbdbd', '#000'],
-      font: 'monospace',
-      size: 20,
+      color: '#bdbdbd',
+      font: [20, 'monospace', '#000'],
       message: 'START'
     }
     this.coin = {

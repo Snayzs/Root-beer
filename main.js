@@ -19,7 +19,6 @@ let isStop = false
 let isTouch = false
 let isLoading = true
 let isStart = false
-let is_in_home = true
 let image_has_render = 0
 let time = 60
 let coins = []
@@ -123,7 +122,7 @@ function reset() {
         hand.position.y += 15;
         break;
       case frame > 50 && frame < 80:
-        glass.slideOut();
+        glass.slide('out');
         bear_text.message = '';
         bear.position.y += 10;
         break;
