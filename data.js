@@ -88,9 +88,9 @@ class Data {
     this.home_title = {
       position: {
         x: canvas.width / 2 - 150,
-        y: 150
+        y: 120
       },
-      font: [50, 'helvetica', '#bdbdbd'],
+      font: [50, 'Helvetica', '#bdbdbd'],
       message: "ROOTED BEAR"
     }
     this.loading = {
@@ -100,6 +100,21 @@ class Data {
       },
       font: [30, 'monospace', '#bdbdbd'],
       message: 'Loading...'
+    }
+    this.highScores = {
+      position: {
+        x: canvas.width / 2 - 100,
+        y: 150
+      },
+      font: [20, 'monospace', '#bdbdbd']
+    }
+    this.credit = {
+      position: {
+        x: canvas.width - 170,
+        y: canvas.height - 20
+      },
+      font: [15, 'monospace', '#bdbdbd'],
+      message: 'Credit Alex Susmam'
     }
     this.button = {
       position: {

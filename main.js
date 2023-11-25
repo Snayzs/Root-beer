@@ -10,9 +10,8 @@ let bear_text = new Text(data.bear_text)
 let loading = new Text(data.loading)
 let buttonStart = new Button(data.button)
 let home_title = new Text(data.home_title)
-
-hand.position.y = glass.target.position.y - 58
-glass.position.x = canvas.width
+let credit = new Text(data.credit)
+let highScores_text = new Text(data.highScores)
 
 let isReset = false
 let isStop = false
@@ -20,9 +19,15 @@ let isTouch = false
 let isLoading = true
 let isStart = false
 let image_has_render = 0
-let time = 60
+let time = 03
 let coins = []
 let frame = 0
+let highScores = localStorage.getItem('root_bear_highScores') || 0
+
+
+hand.position.y = glass.target.position.y - 58
+glass.position.x = canvas.width
+highScores_text.message = 'high scores : $' + highScores
 
 
 function getRandom({ min, max }) {
@@ -76,6 +81,8 @@ function setPages() {
     case !isStart:
       home_title.draw()
       buttonStart.draw()
+      highScores_text.draw()
+      credit.draw()
       buttonStart.init().then(() => {
         setTime(time)
         isStart = true
@@ -83,7 +90,6 @@ function setPages() {
       break;
 
     case clock.time > 0:
-    case frame < 100:
       let sprites = [bear, hand, table, glass, pipe, clock, bear_text]
       sprites.forEach(sprite => sprite.draw())
 
