@@ -1,5 +1,4 @@
 const data = new Data()
-
 let table = new Sprite(data.table)
 let hand = new Sprite(data.hand)
 let pipe = new Sprite(data.pipe)
@@ -13,11 +12,18 @@ let home_title = new Text(data.home_title)
 let credit = new Text(data.credit)
 let highScores_text = new Text(data.highScores)
 
+
+// Sound effect
+let pour_sfx = new Howl(data.sounds.pour)
+let scream_sfx = new Howl(data.sounds.scream)
+pour_sfx.seek(0.5)
+
 let isReset = false
 let isStop = false
 let isTouch = false
 let isLoading = true
 let isStart = false
+let isPouring = true
 let image_has_render = 0
 let time = 60
 let coins = []
@@ -151,33 +157,42 @@ function reset() {
 }
 
 
-
-
 function handleTouch() {
   if (isStop) {
     isReset = true
+    pour_sfx.stop()
     return
   }
 
   if (isTouch) {
+    if (isPouring) {
+      pour_sfx.play()
+      isPouring = false
+    }
+
     if (glass.liquid.height <= 220) {
       glass.liquid.height += 25
     }
+
     if (glass.liquid.height >= 100) {
       if (glass.foam.position.y > glass.position.y + 2) {
-        adjustFoam(2)
+        adjustFoam(1)
       } else {
         isStop = true
         glass.liquid.height = 0
 
+        scream_sfx.play('auto')
         bear.expression = 'scream'
         return
       }
     }
   } else {
     glass.liquid.height = 0
+
     if (glass.foam.position.y <= glass.beer.position.y) {
       adjustFoam(-1)
+      pour_sfx.pause()
+      isPouring = true
     }
   }
 
@@ -194,6 +209,7 @@ function checkVolume() {
   //cek target
   if (Math.floor(glass.beer.position.y + 1) == glass.foam.position.y) {
     isStop = true
+    isPouring = true
 
     if (isAccording()) {
       bear.expression = 'perfect'

@@ -127,6 +127,17 @@ class Data {
       font: [20, 'monospace', '#000'],
       message: 'START'
     }
+    this.sounds = {
+      pour: {
+        src: ['assets/sfx/pouring.mp3']
+      },
+      scream: {
+        src: ['assets/sfx/scream.mp3'],
+        sprite: {
+          auto: [100, 1800]
+        }
+      }
+    }
     this.coin = {
       gold: {
         type: 'Gold',
