@@ -136,6 +136,24 @@ class Data {
         sprite: {
           auto: [100, 1800]
         }
+      },
+      pop: {
+        src: ['assets/sfx/pop.mp3'],
+        sprite: {
+          auto: [100, 4000]
+        }
+      },
+      harp: {
+        src: ['assets/sfx/harp.mp3'],
+        sprite: {
+          auto: [2500, 3000]
+        }
+      },
+      cashier: {
+        src: ['assets/sfx/chasier.mp3'],
+        sprite: {
+          auto: [100, 1500]
+        }
       }
     }
     this.coin = {

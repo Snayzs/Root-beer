@@ -1,4 +1,6 @@
 const data = new Data()
+
+// Object
 let table = new Sprite(data.table)
 let hand = new Sprite(data.hand)
 let pipe = new Sprite(data.pipe)
@@ -15,6 +17,9 @@ let highScores_text = new Text(data.highScores)
 
 // Sound effect
 let pour_sfx = new Howl(data.sounds.pour)
+let pop_sfx = new Howl(data.sounds.pop)
+let harp_sfx = new Howl(data.sounds.harp)
+let chasier_sfx = new Howl(data.sounds.cashier)
 let scream_sfx = new Howl(data.sounds.scream)
 pour_sfx.seek(0.5)
 
@@ -212,17 +217,21 @@ function checkVolume() {
     isPouring = true
 
     if (isAccording()) {
+      harp_sfx.play('auto')
       bear.expression = 'perfect'
       bear_text.message = 'Perfect Pour'
       addCoin('gold')
       return
     }
     if (isAccording(5)) {
+      chasier_sfx.play('auto')
       bear_text.message = 'Close Enough'
       bear.expression = 'notbad'
       addCoin('silver')
       return
     }
+
+    pop_sfx.play('auto')
     bear_text.message = ' weak pour '
     bear.expression = 'disappointed'
     addCoin('bronze')
