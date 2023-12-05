@@ -116,6 +116,17 @@ class Data {
       font: [15, 'monospace', '#bdbdbd'],
       message: 'Credit Alex Susmam'
     }
+    this.restart = {
+      position: {
+        x: canvas.width / 2 - 40,
+        y: canvas.height - 50
+      },
+      width: 90,
+      height: 40,
+      color: '#bdbdbd',
+      font: [15, 'monospace', '#000'],
+      message: 'RESTART'
+    }
     this.button = {
       position: {
         x: canvas.width / 2 - 40,

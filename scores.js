@@ -1,14 +1,14 @@
 class Scores {
   constructor(coins) {
-    this.coins = coins;
-    this.initialize();
+    this.coins = coins
+    this.initialize()
   }
 
   initialize() {
-    this.top = 50
-    this.left = 50
-    this.bottom = canvas.height - 50
-    this.right = canvas.width - 50
+    this.top = 60
+    this.left = 60
+    this.bottom = canvas.height - 60
+    this.right = canvas.width - 60
 
     this.calculateScores()
   }

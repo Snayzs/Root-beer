@@ -12,6 +12,7 @@ let loading = new Text(data.loading)
 let buttonStart = new Button(data.button)
 let home_title = new Text(data.home_title)
 let credit = new Text(data.credit)
+let buttonReset = new Button(data.restart)
 let highScores_text = new Text(data.highScores)
 
 
@@ -100,17 +101,30 @@ function setPages() {
       })
       break;
 
-    case clock.time > 0:
-      let sprites = [bear, hand, table, glass, pipe, clock, bear_text]
-      sprites.forEach(sprite => sprite.draw())
+    case isStart && clock.time > 0:
+      bear.draw()
+      hand.draw()
+      table.draw()
+      glass.draw()
+      pipe.draw()
+      clock.draw()
+      bear_text.draw()
 
       reset()
       handleTouch()
       break;
 
     case clock.time == 0:
+      pour_sfx.stop()
       let scores = new Scores(coins)
       scores.draw()
+      
+      reset()
+      buttonReset.draw()
+      buttonReset.init().then(() => {
+        setTime(time)
+        coins = []
+      })
       break;
   }
 }
@@ -119,7 +133,7 @@ function setPages() {
 
 
 function animate() {
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animate)
   c.clearRect(0, 0, canvas.width, canvas.height)
 
   setPages()
@@ -130,32 +144,32 @@ animate()
 
 function reset() {
   if (frame > 10 && hand.position.y > glass.target.position.y - 58) {
-    hand.position.y -= 6;
+    hand.position.y -= 6
   }
 
   if (isStop && isReset) {
     switch (true) {
       case frame < 50:
-        hand.position.y += 15;
-        break;
+        hand.position.y += 15
+        break
       case frame > 50 && frame < 80:
-        glass.slide('out');
-        bear_text.message = '';
-        bear.position.y += 10;
-        break;
+        glass.slide('out')
+        bear_text.message = ''
+        bear.position.y += 10
+        break
       case frame > 100 && frame < 110:
-        glass = new Glass(data.glass);
-        glass.position.x = canvas.width;
-        bear.expression = 'normal';
-        break;
+        glass = new Glass(data.glass)
+        glass.position.x = canvas.width
+        bear.expression = 'normal'
+        break
       case frame > 110 && frame < 140:
         bear.position.y -= 10;
-        break;
+        break
       case frame > 140:
-        isStop = false;
-        isReset = false;
-        frame = 0;
-        break;
+        isStop = false
+        isReset = false
+        frame = 0
+        break
     }
     frame++;
   }
